@@ -6,13 +6,13 @@ import GroundPlane from './GroundPlane'
 import WireConnections from './WireConnections'
 import type { AppMode, ComponentModelType } from '../types'
 
-type Props = { mode: AppMode }
+type Props = { mode: AppMode; wireType: 'positive' | 'negative' }
 
 const PLACING_TYPES: ComponentModelType[] = [
   'panel', 'inverter', 'battery', 'charge_controller', 'combiner_box',
 ]
 
-export default function SystemCanvas({ mode }: Props) {
+export default function SystemCanvas({ mode, wireType }: Props) {
   const placingType = PLACING_TYPES.includes(mode as ComponentModelType)
     ? (mode as ComponentModelType)
     : null
@@ -29,7 +29,7 @@ export default function SystemCanvas({ mode }: Props) {
         />
         <Environment preset="city" />
         <OrbitControls makeDefault />
-        <SceneObjects wiringMode={mode === 'wire'} />
+        <SceneObjects wiringMode={mode === 'wire'} wireType={wireType} />
         <GroundPlane placingType={placingType} />
         <WireConnections />
       </Canvas>

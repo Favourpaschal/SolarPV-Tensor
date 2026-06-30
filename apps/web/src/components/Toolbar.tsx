@@ -4,6 +4,8 @@ import type { AppMode } from '../types'
 type Props = {
   mode: AppMode
   setMode: (m: AppMode) => void
+  wireType: 'positive' | 'negative'
+  setWireType: (t: 'positive' | 'negative') => void
 }
 
 const tools: { label: string; value: AppMode }[] = [
@@ -16,7 +18,7 @@ const tools: { label: string; value: AppMode }[] = [
   { label: 'Wire', value: 'wire' },
 ]
 
-export default function Toolbar({ mode, setMode }: Props) {
+export default function Toolbar({ mode, setMode, wireType, setWireType }: Props) {
   const selectedId = useSceneStore((s) => s.selectedId)
   const removeComponent = useSceneStore((s) => s.removeComponent)
   const selectComponent = useSceneStore((s) => s.selectComponent)
@@ -61,6 +63,34 @@ export default function Toolbar({ mode, setMode }: Props) {
           {t.label}
         </button>
       ))}
+
+      {mode === 'wire' && (
+        <>
+          <button
+            onClick={() => setWireType('positive')}
+            style={{
+              padding: '5px 11px', fontSize: 12,
+              background: wireType === 'positive' ? '#e24b4a' : 'transparent',
+              color: wireType === 'positive' ? 'white' : '#333',
+              border: '1px solid #e24b4a', borderRadius: 6, cursor: 'pointer',
+            }}
+          >
+            + Positive
+          </button>
+          <button
+            onClick={() => setWireType('negative')}
+            style={{
+              padding: '5px 11px', fontSize: 12,
+              background: wireType === 'negative' ? '#1c1c1c' : 'transparent',
+              color: wireType === 'negative' ? 'white' : '#333',
+              border: '1px solid #1c1c1c', borderRadius: 6, cursor: 'pointer',
+            }}
+          >
+            − Negative
+          </button>
+        </>
+      )}
+
       {selectedId && (
         <button
           onClick={handleDelete}

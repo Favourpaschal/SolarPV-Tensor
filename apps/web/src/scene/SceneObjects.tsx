@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { useSceneStore } from '../store/sceneStore'
 import { ComponentRegistry } from './components'
 
-type Props = { wiringMode: boolean }
+type Props = { wiringMode: boolean; wireType: 'positive' | 'negative' }
 
-export default function SceneObjects({ wiringMode }: Props) {
+export default function SceneObjects({ wiringMode, wireType }: Props) {
   const components = useSceneStore((s) => s.components)
   const selectedId = useSceneStore((s) => s.selectedId)
   const selectComponent = useSceneStore((s) => s.selectComponent)
@@ -21,8 +21,8 @@ export default function SceneObjects({ wiringMode }: Props) {
       return
     }
     if (wiringFrom !== id) {
-      addWire(wiringFrom, id)
-    }
+    addWire(wiringFrom, id, wireType)
+  }
     setWiringFrom(null)
   }
 

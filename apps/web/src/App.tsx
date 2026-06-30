@@ -1,15 +1,16 @@
-import { useUIStore } from './store/uiStore'
-import ModeSwitcher from './components/ModeSwitcher'
-import HobbyistWizard from './pages/HobbyistWizard'
-import ProfessionalWorkspace from './pages/ProfessionalWorkspace'
+import { useState } from 'react'
+import SystemCanvas from './scene/SystemCanvas'
+import Toolbar from './components/Toolbar'
+import type { AppMode } from './types'
 
 export default function App() {
-  const { mode } = useUIStore()
+  const [mode, setMode] = useState<AppMode>('select')
+  const [wireType, setWireType] = useState<'positive' | 'negative'>('positive')
 
   return (
     <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
-      <ModeSwitcher />
-      {mode === 'hobbyist' ? <HobbyistWizard /> : <ProfessionalWorkspace />}
+      <Toolbar mode={mode} setMode={setMode} wireType={wireType} setWireType={setWireType} />
+      <SystemCanvas mode={mode} wireType={wireType} />
     </div>
   )
 }

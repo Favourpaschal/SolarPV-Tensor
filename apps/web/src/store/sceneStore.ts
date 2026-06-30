@@ -8,10 +8,13 @@ export interface PlacedComponent {
   rotation: [number, number, number]
 }
 
+export type WireType = 'positive' | 'negative'
+
 export interface Wire {
   id: string
   fromId: string
   toId: string
+  wireType: WireType
 }
 
 interface SceneState {
@@ -21,7 +24,7 @@ interface SceneState {
   addComponent: (c: PlacedComponent) => void
   removeComponent: (id: string) => void
   selectComponent: (id: string | null) => void
-  addWire: (fromId: string, toId: string) => void
+  addWire: (fromId: string, toId: string, wireType: WireType) => void
 }
 
 export const useSceneStore = create<SceneState>((set) => ({
@@ -36,8 +39,8 @@ export const useSceneStore = create<SceneState>((set) => ({
       wires: s.wires.filter((w) => w.fromId !== id && w.toId !== id),
     })),
   selectComponent: (id) => set({ selectedId: id }),
-  addWire: (fromId, toId) =>
+  addWire: (fromId, toId, wireType) =>
     set((s) => ({
-      wires: [...s.wires, { id: crypto.randomUUID(), fromId, toId }],
+      wires: [...s.wires, { id: crypto.randomUUID(), fromId, toId, wireType }],
     })),
 }))
