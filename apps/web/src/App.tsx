@@ -1,15 +1,15 @@
-import { useState } from 'react'
-import SystemCanvas from './scene/SystemCanvas'
-import Toolbar from './components/Toolbar'
-import type { AppMode } from './types'
+import { useUIStore } from './store/uiStore'
+import ModeSwitcher from './components/ModeSwitcher'
+import HobbyistWizard from './pages/HobbyistWizard'
+import ProfessionalWorkspace from './pages/ProfessionalWorkspace'
 
 export default function App() {
-  const [mode, setMode] = useState<AppMode>('select')
+  const { mode } = useUIStore()
 
   return (
     <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
-      <Toolbar mode={mode} setMode={setMode} />
-      <SystemCanvas mode={mode} />
+      <ModeSwitcher />
+      {mode === 'hobbyist' ? <HobbyistWizard /> : <ProfessionalWorkspace />}
     </div>
   )
 }
