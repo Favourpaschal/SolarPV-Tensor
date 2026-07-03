@@ -37,3 +37,12 @@ class Battery(Base):
     energy_kwh = Column(Float)
     dod_pct = Column(Float)
     cycle_life = Column(Integer)
+
+class WireGauge(Base):
+    __tablename__ = "wire_gauges"
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    awg = Column(String)
+    mm2 = Column(Float)
+    max_ampacity_a = Column(Integer)
+    resistance_ohm_per_m = Column(Float)
+    common_use = Column(String)

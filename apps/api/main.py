@@ -2,10 +2,12 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routers import components
 from routers import calculations
+from routers import recommendations
 
 app = FastAPI(title="SolarPV Tensor", version="0.1.0")
 app.include_router(components.router)
 app.include_router(calculations.router)   
+app.include_router(recommendations.router)
 
 app.add_middleware(
     CORSMiddleware,
