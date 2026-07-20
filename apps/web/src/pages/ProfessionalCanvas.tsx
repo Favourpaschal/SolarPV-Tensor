@@ -6,6 +6,7 @@ import type { AppMode } from '../types'
 
 export default function ProfessionalCanvas() {
   const [mode, setMode] = useState<AppMode>('select')
+  const [wireType, setWireType] = useState<'positive' | 'negative'>('positive')
   const [isTablet, setIsTablet] = useState(window.innerWidth < 1024)
 
   useEffect(() => {
@@ -20,9 +21,18 @@ export default function ProfessionalCanvas() {
       flexDirection: isTablet ? 'column' : 'row',
       height: '100vh',
     }}>
-      <div style={{ position: 'relative', flex: isTablet ? 'none' : 2, height: isTablet ? '60vh' : '100%' }}>
-        <Toolbar mode={mode} setMode={setMode} />
-        <SystemCanvas mode={mode} />
+      <div style={{
+        position: 'relative',
+        flex: isTablet ? 'none' : 2,
+        height: isTablet ? '60vh' : '100%',
+      }}>
+        <Toolbar
+          mode={mode}
+          setMode={setMode}
+          wireType={wireType}
+          setWireType={setWireType}
+        />
+        <SystemCanvas mode={mode} wireType={wireType} />
       </div>
       <div style={{ flex: 1, padding: 12, overflowY: 'auto' }}>
         <h3>Schematic</h3>

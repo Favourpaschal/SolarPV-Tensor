@@ -1,13 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import components
-from routers import calculations
-from routers import recommendations
+from routers import components, calculations, recommendations, simulation
 
-app = FastAPI(title="SolarPV Tensor", version="0.1.0")
-app.include_router(components.router)
-app.include_router(calculations.router)   
-app.include_router(recommendations.router)
+app = FastAPI(title="SolarPV Tensor API", version="0.1.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -17,6 +12,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(components.router)
+app.include_router(calculations.router)
+app.include_router(recommendations.router)
+app.include_router(simulation.router)
+# app.include_router(projects.router)
+
 @app.get("/")
 def health():
-    return {"status": "ok", "app": "SolarPv Tensor API"}
+    return {"status": "ok", "app": "SolarPV Tensor API"}

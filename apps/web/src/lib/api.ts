@@ -19,3 +19,13 @@ export async function getRecommendations(payload: any) {
   if (!res.ok) throw new Error('Recommendation failed')
   return res.json()
 }
+
+export async function runSimulation(payload: any) {
+  const res = await fetch(`${API_BASE}/simulate/full`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  })
+  if (!res.ok) throw new Error('Simulation failed')
+  return res.json()
+}
