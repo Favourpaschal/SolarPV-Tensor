@@ -1,7 +1,8 @@
+import ReportExporter from '../components/ReportExporter'
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import LoadForm from '../components/LoadForm'
-import SimulationResults from '../components/SimulationResults'
+// import SimulationResults from '../components/SimulationResults'
 import { getRecommendations, runSimulation } from '../lib/api'
 
 const STEPS = ['location', 'appliances', 'results'] as const
@@ -83,11 +84,7 @@ export default function HobbyistWizard() {
         )}
 
         {step === 2 && result && (
-          <motion.div
-            key="res"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-          >
+          <motion.div key="res" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
             <h2>Your system</h2>
             <p>Daily load: <strong>{result.load.daily_wh} Wh</strong></p>
             <p>Panels needed: <strong>{result.panel_array.panel_count} × 400W</strong></p>
@@ -114,31 +111,19 @@ export default function HobbyistWizard() {
               </div>
             )}
 
-            {result.top_panels && result.top_panels[0] && (
-              <>
-                <h3 style={{ marginTop: 20 }}>Recommended panel</h3>
-                <p>{result.top_panels[0].manufacturer} {result.top_panels[0].model} — {result.top_panels[0].pmax_w}W</p>
-              </>
-            )}
+          <button onClick={handleSimulate} style={{ marginTop: 16 }}>
+            Run system simulation
+          </button>
 
-            {result.tool_checklist && (
-              <>
-                <h3>Tools you will need</h3>
-                <ul>
-                  {result.tool_checklist.map((t: any) => (
-                    <li key={t.tool}>{t.tool}</li>
-                  ))}
-                </ul>
-              </>
-            )}
-
-            <button onClick={handleSimulate} style={{ marginTop: 16 }}>
-              Run system simulation
-            </button>
-
-            {simResult && <SimulationResults data={simResult} />}
-          </motion.div>
-        )}
+    {simResult && (
+      <ReportExporter
+        result={result}
+        simResult={simResult}
+        location={location}
+      />
+    )}
+  </motion.div>
+)}
       </AnimatePresence>
     </div>
   )

@@ -1,7 +1,9 @@
-from sqlalchemy import Column, String, Float, Integer
+from sqlalchemy import Column, String, Float, Integer, DateTime
 from sqlalchemy.dialects.postgresql import UUID
 import uuid
 from database import Base
+from sqlalchemy.dialects.postgresql import JSONB
+from datetime import datetime
 
 class SolarPanel(Base):
     __tablename__ = "solar_panels"
@@ -46,3 +48,17 @@ class WireGauge(Base):
     max_ampacity_a = Column(Integer)
     resistance_ohm_per_m = Column(Float)
     common_use = Column(String)
+
+class Project(Base):
+    __tablename__ = "projects"
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    name = Column(String, nullable=False)
+    user_label = Column(String)
+    location = Column(String)
+    appliances = Column(JSONB)
+    sizing_result = Column(JSONB)
+    simulation_result = Column(JSONB)
+    components = Column(JSONB)
+    wires = Column(JSONB)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)

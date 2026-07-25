@@ -29,3 +29,15 @@ export async function runSimulation(payload: any) {
   if (!res.ok) throw new Error('Simulation failed')
   return res.json()
 }
+
+export async function listProjects() {
+  const res = await fetch(`${API_BASE}/projects/list`)
+  if (!res.ok) throw new Error('Failed to fetch projects')
+  return res.json()
+}
+
+export async function getProject(id: string) {
+  const res = await fetch(`${API_BASE}/projects/${id}`)
+  if (!res.ok) throw new Error('Failed to fetch project')
+  return res.json()
+}
