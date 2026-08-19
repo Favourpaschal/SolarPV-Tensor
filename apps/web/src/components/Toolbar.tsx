@@ -49,6 +49,8 @@ export default function Toolbar({ mode, setMode, wireType, setWireType }: Props)
         <button
           key={t.value}
           onClick={() => setMode(t.value)}
+          aria-label={`Select ${t.label} tool`}
+          aria-pressed={mode === t.value}
           style={{
             padding: '5px 11px',
             fontSize: 12,
@@ -106,6 +108,8 @@ export default function Toolbar({ mode, setMode, wireType, setWireType }: Props)
         >
           Delete
         </button>
+        
+
       )}
     </div>
   )
