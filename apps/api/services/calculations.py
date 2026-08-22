@@ -63,3 +63,25 @@ def recommend_wire_gauge(current_a: float, length_m: float,
         if fits_current and fits_drop:
             return {**wire, "voltage_drop_pct": round(vdrop_pct, 2)}
     return None  # nothing in the table is sufficient
+
+# Inverter sizing: minimum inverter rating = peak_load_w × safety_margin
+def calculate_inverter_size(peak_load_w: float, safety_margin: float = 1.25):
+    """
+    Determines minimum inverter rating needed.
+    Uses 1.25x safety margin (NEC standard).
+    Higher than the 1.2x used for recommendations
+    to give an extra buffer for surge loads like
+    fridges and pumps starting up.
+    """
+    min_rating_w = peak_load_w * safety_margin
+    # Round up to nearest standard inverter size
+    standard_sizes = [800, 1000, 1200, 1500, 2000, 2500, 3000, 3500, 4000, 5000]
+    recommended_size = next(
+        (s for s in standard_sizes if s >= min_rating_w),
+        standard_sizes[-1]
+    )
+    return {
+        "min_rating_w": round(min_rating_w, 0),
+        "recommended_standard_w": recommended_size,
+        "safety_margin": safety_margin,
+    }

@@ -43,6 +43,7 @@ export default function GroundPlane({ placingType }: Props) {
           type: placingType,
           position: snapped,
           rotation: [0, 0, 0],
+          notes: '',
         })
       }}
     >
