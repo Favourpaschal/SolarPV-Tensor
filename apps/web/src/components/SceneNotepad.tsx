@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useSceneStore } from '../store/sceneStore'
+import { ClipboardList, X, Copy, Box } from 'lucide-react'
 
 export default function SceneNotepad() {
   const sceneNotes = useSceneStore((s) => s.sceneNotes)
@@ -14,12 +15,12 @@ export default function SceneNotepad() {
   return (
     <div style={{
       position: 'absolute',
-      bottom: 20,
-      right: 20,
-      zIndex: 20,
+      top: 70,
+      right: 16,
+      zIndex: 30,
       fontFamily: 'sans-serif',
     }}>
-      {/* Toggle button */}
+      {/* Trigger button */}
       {!open && (
         <button
           onClick={() => setOpen(true)}
@@ -28,25 +29,27 @@ export default function SceneNotepad() {
             color: 'white',
             border: 'none',
             borderRadius: 10,
-            padding: '8px 14px',
-            fontSize: 12,
-            fontWeight: 500,
+            padding: '9px 16px',
+            fontSize: 13,
+            fontWeight: 600,
             cursor: 'pointer',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+            boxShadow: '0 3px 12px rgba(24,95,165,0.35)',
             display: 'flex',
             alignItems: 'center',
-            gap: 6,
+            gap: 7,
+            letterSpacing: '0.01em',
           }}
         >
-          📋 Design notes
+          <ClipboardList size={15} strokeWidth={1.5} />
+          Design notes
           {hasNotes && (
             <span style={{
               background: '#EF9F27',
               color: 'white',
               borderRadius: 8,
               fontSize: 10,
-              padding: '1px 6px',
-              fontWeight: 600,
+              padding: '2px 7px',
+              fontWeight: 700,
             }}>
               {sceneNotes.trim().split('\n').length}
             </span>
@@ -54,7 +57,7 @@ export default function SceneNotepad() {
         </button>
       )}
 
-      {/* Expanded notepad */}
+      {/* Expanded notepad panel */}
       {open && (
         <div style={{
           background: 'white',
@@ -72,9 +75,17 @@ export default function SceneNotepad() {
             alignItems: 'center',
             justifyContent: 'space-between',
           }}>
-            <span style={{ color: 'white', fontSize: 13, fontWeight: 500 }}>
-              📋 Design notes
-            </span>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 7,
+              color: 'white',
+              fontSize: 13,
+              fontWeight: 500,
+            }}>
+              <ClipboardList size={15} strokeWidth={1.5} />
+              Design notes
+            </div>
             <button
               onClick={() => setOpen(false)}
               style={{
@@ -82,20 +93,18 @@ export default function SceneNotepad() {
                 border: 'none',
                 color: 'white',
                 borderRadius: 6,
-                padding: '2px 8px',
+                padding: '3px 7px',
                 cursor: 'pointer',
-                fontSize: 12,
+                display: 'flex',
+                alignItems: 'center',
               }}
             >
-              ✕
+              <X size={13} strokeWidth={2} />
             </button>
           </div>
 
           {/* Tabs */}
-          <div style={{
-            display: 'flex',
-            borderBottom: '1px solid #eee',
-          }}>
+          <div style={{ display: 'flex', borderBottom: '1px solid #eee' }}>
             {(['general', 'summary'] as const).map((t) => (
               <button
                 key={t}
@@ -109,8 +118,9 @@ export default function SceneNotepad() {
                   color: tab === t ? '#185FA5' : '#666',
                   fontWeight: tab === t ? 600 : 400,
                   cursor: 'pointer',
-                  borderBottom: tab === t ? '2px solid #185FA5' : '2px solid transparent',
-                  textTransform: 'capitalize',
+                  borderBottom: tab === t
+                    ? '2px solid #185FA5'
+                    : '2px solid transparent',
                 }}
               >
                 {t === 'summary'
@@ -129,7 +139,7 @@ export default function SceneNotepad() {
                 marginBottom: 8,
                 lineHeight: 1.5,
               }}>
-                Write your overall system design notes here. Visible to all team members — technical and non-technical.
+                Write your overall system design notes here. Visible to all team members.
               </p>
               <textarea
                 value={sceneNotes}
@@ -183,15 +193,25 @@ export default function SceneNotepad() {
               overflowY: 'auto',
             }}>
               {componentWithNotes.length === 0 ? (
-                <p style={{
-                  fontSize: 12,
-                  color: '#aaa',
-                  textAlign: 'center',
-                  padding: '20px 0',
-                  lineHeight: 1.6,
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  padding: '24px 0',
+                  gap: 8,
                 }}>
-                  No component notes yet. Click on a component in the 3D scene and expand its label to add notes.
-                </p>
+                  <Box size={28} color="#ccc" strokeWidth={1} />
+                  <p style={{
+                    fontSize: 12,
+                    color: '#aaa',
+                    textAlign: 'center',
+                    margin: 0,
+                    lineHeight: 1.6,
+                  }}>
+                    No component notes yet. Click on a component label in the
+                    scene to add notes.
+                  </p>
+                </div>
               ) : (
                 componentWithNotes.map((c) => (
                   <div key={c.id} style={{
@@ -255,8 +275,12 @@ export default function SceneNotepad() {
                 border: 'none',
                 borderRadius: 5,
                 cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 5,
               }}
             >
+              <Copy size={11} strokeWidth={1.5} />
               Copy all notes
             </button>
           </div>

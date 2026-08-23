@@ -1,4 +1,5 @@
 import { useNavigate, useLocation } from 'react-router-dom'
+import { Sun, Wrench, HardHat, ArrowLeft } from 'lucide-react'
 
 export default function ModeNav() {
   const navigate = useNavigate()
@@ -32,7 +33,17 @@ export default function ModeNav() {
           cursor: 'pointer',
         }}
       >
-        <span style={{ fontSize: 18 }}>☀️</span>
+        <div style={{
+          width: 28,
+          height: 28,
+          background: '#185FA5',
+          borderRadius: 7,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+          <Sun size={16} color="white" strokeWidth={1.5} />
+        </div>
         <span style={{ fontSize: 14, fontWeight: 700, color: '#185FA5' }}>
           SolarPV Tensor
         </span>
@@ -59,9 +70,13 @@ export default function ModeNav() {
             cursor: 'pointer',
             boxShadow: isHobbyist ? '0 1px 4px rgba(0,0,0,0.1)' : 'none',
             transition: 'all 0.15s',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
           }}
         >
-          🧑‍🔧 Hobbyist
+          <Wrench size={13} strokeWidth={1.5} />
+          Hobbyist
         </button>
         <button
           onClick={() => navigate('/professional')}
@@ -76,13 +91,17 @@ export default function ModeNav() {
             cursor: 'pointer',
             boxShadow: isProfessional ? '0 1px 4px rgba(0,0,0,0.1)' : 'none',
             transition: 'all 0.15s',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
           }}
         >
-          👷 Professional
+          <HardHat size={13} strokeWidth={1.5} />
+          Professional
         </button>
       </div>
 
-      {/* Right side — home link */}
+      {/* Home link */}
       <button
         onClick={() => navigate('/')}
         style={{
@@ -93,9 +112,13 @@ export default function ModeNav() {
           fontSize: 12,
           color: '#666',
           cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 5,
         }}
       >
-        ← Home
+        <ArrowLeft size={12} strokeWidth={2} />
+        Home
       </button>
     </div>
   )

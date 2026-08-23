@@ -1,5 +1,15 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import {
+  Zap,
+  Sun,
+  Cable,
+  AlertTriangle,
+  Wrench,
+  Play,
+  ArrowLeft,
+  Check,
+} from 'lucide-react'
 import LoadForm from '../components/LoadForm'
 import SimulationResults from '../components/SimulationResults'
 import ReportExporter from '../components/ReportExporter'
@@ -110,7 +120,12 @@ export default function HobbyistWizard() {
               <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 8 }}>
                 Where are you installing?
               </h2>
-              <p style={{ fontSize: 13, color: '#666', marginBottom: 20, lineHeight: 1.6 }}>
+              <p style={{
+                fontSize: 13,
+                color: '#666',
+                marginBottom: 20,
+                lineHeight: 1.6,
+              }}>
                 This determines the peak sun hours used to size your solar array.
                 Locations further north in Nigeria typically get more sunlight.
               </p>
@@ -164,7 +179,12 @@ export default function HobbyistWizard() {
               <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 8 }}>
                 What do you want to power?
               </h2>
-              <p style={{ fontSize: 13, color: '#666', marginBottom: 20, lineHeight: 1.6 }}>
+              <p style={{
+                fontSize: 13,
+                color: '#666',
+                marginBottom: 20,
+                lineHeight: 1.6,
+              }}>
                 Add every appliance you want to run on solar. Include the wattage,
                 how many hours per day it runs, and how many units you have.
               </p>
@@ -202,9 +222,13 @@ export default function HobbyistWizard() {
                   cursor: 'pointer',
                   textDecoration: 'underline',
                   padding: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 5,
                 }}
               >
-                ← Back
+                <ArrowLeft size={13} strokeWidth={1.5} />
+                Back
               </button>
             </motion.div>
           )}
@@ -298,12 +322,16 @@ export default function HobbyistWizard() {
                   marginBottom: 14,
                 }}>
                   <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 6,
                     fontSize: 12,
                     fontWeight: 600,
                     color: '#27500A',
-                    marginBottom: 6,
+                    marginBottom: 8,
                   }}>
-                    ⚡ Inverter sizing
+                    <Zap size={13} strokeWidth={1.5} />
+                    Inverter sizing
                   </div>
                   <div style={{ fontSize: 13, color: '#333', marginBottom: 4 }}>
                     Minimum required:{' '}
@@ -350,12 +378,16 @@ export default function HobbyistWizard() {
                   marginBottom: 14,
                 }}>
                   <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 6,
                     fontSize: 12,
                     fontWeight: 600,
                     color: '#854F0B',
-                    marginBottom: 6,
+                    marginBottom: 8,
                   }}>
-                    ☀️ Recommended panel
+                    <Sun size={13} strokeWidth={1.5} />
+                    Recommended panel
                   </div>
                   <div style={{ fontSize: 13, color: '#333' }}>
                     <strong>
@@ -385,12 +417,16 @@ export default function HobbyistWizard() {
                   marginBottom: 14,
                 }}>
                   <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 6,
                     fontSize: 12,
                     fontWeight: 600,
                     color: '#333',
                     marginBottom: 8,
                   }}>
-                    🔌 Wire sizing
+                    <Cable size={13} strokeWidth={1.5} />
+                    Wire sizing
                   </div>
                   {Object.values(result.wire_recommendations).map((w: any) => (
                     <div
@@ -418,12 +454,16 @@ export default function HobbyistWizard() {
               {result.alerts && result.alerts.length > 0 && (
                 <div style={{ marginBottom: 14 }}>
                   <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 6,
                     fontSize: 12,
                     fontWeight: 600,
                     color: '#333',
                     marginBottom: 6,
                   }}>
-                    ⚠️ System alerts
+                    <AlertTriangle size={13} strokeWidth={1.5} />
+                    System alerts
                   </div>
                   {result.alerts.map((a: any, i: number) => (
                     <div
@@ -460,28 +500,46 @@ export default function HobbyistWizard() {
                   marginBottom: 20,
                 }}>
                   <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 6,
                     fontSize: 12,
                     fontWeight: 600,
                     color: '#333',
                     marginBottom: 8,
                   }}>
-                    🔧 Tools you will need
+                    <Wrench size={13} strokeWidth={1.5} />
+                    Tools you will need
                   </div>
-                  <ul style={{ margin: 0, paddingLeft: 18 }}>
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 5,
+                  }}>
                     {result.tool_checklist.map((t: any) => (
-                      <li
+                      <div
                         key={t.tool}
                         style={{
+                          display: 'flex',
+                          alignItems: 'flex-start',
+                          gap: 8,
                           fontSize: 12,
                           color: '#444',
-                          marginBottom: 4,
                           lineHeight: 1.5,
                         }}
                       >
-                        <strong>{t.tool}</strong> — {t.reason}
-                      </li>
+                        <Check
+                          size={12}
+                          strokeWidth={2.5}
+                          color="#1D9E75"
+                          style={{ marginTop: 2, flexShrink: 0 }}
+                        />
+                        <span>
+                          <strong>{t.tool}</strong> — {t.reason}
+                        </span>
+                      </div>
                     ))}
-                  </ul>
+                  </div>
                 </div>
               )}
 
@@ -501,15 +559,19 @@ export default function HobbyistWizard() {
                     fontWeight: 500,
                     cursor: simLoading ? 'not-allowed' : 'pointer',
                     marginBottom: 16,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 8,
                     transition: 'background 0.2s',
                   }}
                 >
-                  {simLoading
-                    ? 'Running simulation...'
-                    : '▶ Run system simulation'}
+                  <Play size={15} strokeWidth={1.5} />
+                  {simLoading ? 'Running simulation...' : 'Run system simulation'}
                 </button>
               )}
 
+              {/* Error */}
               {error && (
                 <div style={{
                   padding: '10px 14px',
@@ -547,11 +609,15 @@ export default function HobbyistWizard() {
                   cursor: 'pointer',
                   textDecoration: 'underline',
                   padding: 0,
-                  display: 'block',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 5,
                 }}
               >
-                ← Start over
+                <ArrowLeft size={13} strokeWidth={1.5} />
+                Start over
               </button>
+
             </motion.div>
           )}
         </AnimatePresence>

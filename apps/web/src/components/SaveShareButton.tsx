@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import QRCode from 'react-qr-code'
 import { useSceneStore } from '../store/sceneStore'
+import { Save, Package, Cable, FileText, Check, X, Share2, RefreshCw } from 'lucide-react'
 
 export default function SaveShareButton() {
   const components = useSceneStore((s) => s.components)
@@ -57,7 +58,6 @@ export default function SaveShareButton() {
 
   return (
     <>
-      {/* Trigger button */}
       <button
         onClick={() => setOpen(true)}
         style={{
@@ -71,13 +71,13 @@ export default function SaveShareButton() {
           cursor: 'pointer',
           display: 'flex',
           alignItems: 'center',
-          gap: 5,
+          gap: 6,
         }}
       >
-        💾 Save & Share
+        <Save size={13} strokeWidth={1.5} />
+        Save & Share
       </button>
 
-      {/* Modal overlay */}
       {open && (
         <div
           style={{
@@ -109,21 +109,25 @@ export default function SaveShareButton() {
               justifyContent: 'space-between',
               marginBottom: 20,
             }}>
-              <h3 style={{ margin: 0, fontSize: 16, fontWeight: 600 }}>
-                Save & Share project
-              </h3>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <Save size={16} color="#1D9E75" strokeWidth={1.5} />
+                <h3 style={{ margin: 0, fontSize: 16, fontWeight: 600 }}>
+                  Save & Share project
+                </h3>
+              </div>
               <button
                 onClick={() => setOpen(false)}
                 style={{
                   background: '#f0f0f0',
                   border: 'none',
                   borderRadius: 6,
-                  padding: '3px 9px',
+                  padding: '4px 8px',
                   cursor: 'pointer',
-                  fontSize: 13,
+                  display: 'flex',
+                  alignItems: 'center',
                 }}
               >
-                ✕
+                <X size={14} strokeWidth={2} />
               </button>
             </div>
 
@@ -134,24 +138,45 @@ export default function SaveShareButton() {
               borderRadius: 8,
               padding: '10px 14px',
               marginBottom: 16,
-              fontSize: 12,
-              color: '#444',
             }}>
-              <div style={{ marginBottom: 3 }}>
-                📦 {components.length} component{components.length !== 1 ? 's' : ''} in scene
-              </div>
-              <div style={{ marginBottom: 3 }}>
-                🔌 {wires.length} wire connection{wires.length !== 1 ? 's' : ''}
-              </div>
-              <div>
-                📋 {sceneNotes.trim().length > 0 ? 'Design notes included' : 'No design notes'}
-              </div>
+              {[
+                {
+                  icon: <Package size={13} color="#185FA5" strokeWidth={1.5} />,
+                  text: `${components.length} component${components.length !== 1 ? 's' : ''} in scene`,
+                },
+                {
+                  icon: <Cable size={13} color="#185FA5" strokeWidth={1.5} />,
+                  text: `${wires.length} wire connection${wires.length !== 1 ? 's' : ''}`,
+                },
+                {
+                  icon: <FileText size={13} color="#185FA5" strokeWidth={1.5} />,
+                  text: sceneNotes.trim().length > 0 ? 'Design notes included' : 'No design notes',
+                },
+              ].map((item, i) => (
+                <div key={i} style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  fontSize: 12,
+                  color: '#444',
+                  marginBottom: i < 2 ? 5 : 0,
+                }}>
+                  {item.icon}
+                  {item.text}
+                </div>
+              ))}
             </div>
 
             {/* Project name input */}
             {!projectId && (
               <>
-                <label style={{ fontSize: 12, fontWeight: 500, color: '#333', display: 'block', marginBottom: 6 }}>
+                <label style={{
+                  fontSize: 12,
+                  fontWeight: 500,
+                  color: '#333',
+                  display: 'block',
+                  marginBottom: 6,
+                }}>
                   Project name
                 </label>
                 <input
@@ -172,7 +197,6 @@ export default function SaveShareButton() {
               </>
             )}
 
-            {/* Error */}
             {error && (
               <div style={{
                 background: '#FCEBEB',
@@ -186,7 +210,6 @@ export default function SaveShareButton() {
               </div>
             )}
 
-            {/* Save button */}
             {!projectId && (
               <button
                 onClick={handleSave}
@@ -202,13 +225,17 @@ export default function SaveShareButton() {
                   fontWeight: 500,
                   cursor: saving ? 'not-allowed' : 'pointer',
                   marginBottom: 12,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 7,
                 }}
               >
-                {saving ? 'Saving...' : '💾 Save project'}
+                <Save size={14} strokeWidth={1.5} />
+                {saving ? 'Saving...' : 'Save project'}
               </button>
             )}
 
-            {/* Share section — only after save */}
             {projectId && shareUrl && (
               <div>
                 <div style={{
@@ -220,15 +247,27 @@ export default function SaveShareButton() {
                   fontSize: 12,
                   color: '#0C447C',
                   fontWeight: 500,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 7,
                 }}>
-                  ✓ Project saved successfully
+                  <Check size={14} color="#0C447C" strokeWidth={2} />
+                  Project saved successfully
                 </div>
 
-                <div style={{ fontSize: 12, fontWeight: 500, color: '#333', marginBottom: 10 }}>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  fontSize: 12,
+                  fontWeight: 500,
+                  color: '#333',
+                  marginBottom: 10,
+                }}>
+                  <Share2 size={13} strokeWidth={1.5} />
                   Share this design
                 </div>
 
-                {/* QR code */}
                 <div style={{
                   display: 'flex',
                   gap: 14,
@@ -265,14 +304,19 @@ export default function SaveShareButton() {
                         borderRadius: 6,
                         fontSize: 12,
                         cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: 6,
                       }}
                     >
-                      {copied ? '✓ Copied!' : 'Copy link'}
+                      {copied
+                        ? <><Check size={12} strokeWidth={2} /> Copied</>
+                        : 'Copy link'}
                     </button>
                   </div>
                 </div>
 
-                {/* Save another */}
                 <button
                   onClick={() => {
                     setProjectId(null)
@@ -287,8 +331,13 @@ export default function SaveShareButton() {
                     fontSize: 12,
                     color: '#666',
                     cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 6,
                   }}
                 >
+                  <RefreshCw size={12} strokeWidth={1.5} />
                   Save as new project
                 </button>
               </div>

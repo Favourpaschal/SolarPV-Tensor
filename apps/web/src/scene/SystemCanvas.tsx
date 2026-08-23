@@ -51,7 +51,7 @@ export default function SystemCanvas({ mode, wireType }: Props) {
         <WireConnections />
       </Canvas>
 
-      {/* General design notepad — overlaid bottom right */}
+      {/* Design notes button — top right, above the toolbar */}
       <SceneNotepad />
     </div>
   )

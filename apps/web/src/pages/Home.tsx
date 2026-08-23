@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import { Sun, Wrench, HardHat, Check } from 'lucide-react'
 
 export default function Home() {
   const navigate = useNavigate()
@@ -16,7 +17,18 @@ export default function Home() {
     }}>
       {/* Logo */}
       <div style={{ textAlign: 'center', marginBottom: 48 }}>
-        <div style={{ fontSize: 48, marginBottom: 12 }}>☀️</div>
+        <div style={{
+          width: 64,
+          height: 64,
+          background: '#185FA5',
+          borderRadius: 16,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          margin: '0 auto 16px',
+        }}>
+          <Sun size={36} color="white" strokeWidth={1.5} />
+        </div>
         <h1 style={{
           fontSize: 28,
           fontWeight: 700,
@@ -67,7 +79,18 @@ export default function Home() {
             ;(e.currentTarget as HTMLDivElement).style.boxShadow = '0 2px 12px rgba(0,0,0,0.06)'
           }}
         >
-          <div style={{ fontSize: 36, marginBottom: 14 }}>🧑‍🔧</div>
+          <div style={{
+            width: 48,
+            height: 48,
+            background: '#E6F1FB',
+            borderRadius: 12,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginBottom: 14,
+          }}>
+            <Wrench size={24} color="#185FA5" strokeWidth={1.5} />
+          </div>
           <h2 style={{ fontSize: 18, fontWeight: 700, color: '#185FA5', margin: '0 0 8px' }}>
             Hobbyist wizard
           </h2>
@@ -77,12 +100,13 @@ export default function Home() {
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 5, marginBottom: 20 }}>
             {[
-              '✓ Load calculator',
-              '✓ Component recommendations',
-              '✓ System simulation',
-              '✓ PDF report & BOM export',
+              'Load calculator',
+              'Component recommendations',
+              'System simulation',
+              'PDF report and BOM export',
             ].map((f) => (
-              <div key={f} style={{ fontSize: 12, color: '#1D9E75', fontWeight: 500 }}>
+              <div key={f} style={{ fontSize: 12, color: '#1D9E75', fontWeight: 500, display: 'flex', alignItems: 'center', gap: 6 }}>
+                <Check size={12} strokeWidth={2.5} />
                 {f}
               </div>
             ))}
@@ -97,8 +121,12 @@ export default function Home() {
             fontSize: 13,
             fontWeight: 600,
             cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 6,
           }}>
-            Start wizard →
+            Start wizard
           </button>
         </div>
 
@@ -124,7 +152,18 @@ export default function Home() {
             ;(e.currentTarget as HTMLDivElement).style.boxShadow = '0 2px 12px rgba(0,0,0,0.06)'
           }}
         >
-          <div style={{ fontSize: 36, marginBottom: 14 }}>👷</div>
+          <div style={{
+            width: 48,
+            height: 48,
+            background: '#E6F5EE',
+            borderRadius: 12,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginBottom: 14,
+          }}>
+            <HardHat size={24} color="#1D9E75" strokeWidth={1.5} />
+          </div>
           <h2 style={{ fontSize: 18, fontWeight: 700, color: '#1D9E75', margin: '0 0 8px' }}>
             Professional canvas
           </h2>
@@ -134,12 +173,13 @@ export default function Home() {
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 5, marginBottom: 20 }}>
             {[
-              '✓ 3D component placement',
-              '✓ Drag, move, rotate components',
-              '✓ Red/black wire routing',
-              '✓ Design notes & team sharing',
+              '3D component placement',
+              'Drag, move, rotate components',
+              'Red and black wire routing',
+              'Design notes and team sharing',
             ].map((f) => (
-              <div key={f} style={{ fontSize: 12, color: '#1D9E75', fontWeight: 500 }}>
+              <div key={f} style={{ fontSize: 12, color: '#1D9E75', fontWeight: 500, display: 'flex', alignItems: 'center', gap: 6 }}>
+                <Check size={12} strokeWidth={2.5} />
                 {f}
               </div>
             ))}
@@ -154,20 +194,19 @@ export default function Home() {
             fontSize: 13,
             fontWeight: 600,
             cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 6,
           }}>
-            Open canvas →
+            Open canvas
           </button>
         </div>
       </div>
 
       {/* Footer */}
-      <div style={{
-        marginTop: 48,
-        fontSize: 12,
-        color: '#aaa',
-        textAlign: 'center',
-      }}>
-        SolarPV Tensor · Built for solar installers and hobbyists around the globe.
+      <div style={{ marginTop: 48, fontSize: 12, color: '#aaa', textAlign: 'center' }}>
+        SolarPV Tensor · Built for solar installers and hobbyists around the globe. <br />
       </div>
     </div>
   )
