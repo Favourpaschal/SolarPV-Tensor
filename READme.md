@@ -2,13 +2,6 @@
 
 Full-stack solar PV system design platform — 3D visualization, load calculation, and component recommendation engine for solar installers and hobbyists.
 
-## Status
-
-- Phase 1 — Architecture & planning: done
-- Phase 2 — Component database: done
-- Phase 3 — Calculation engine: done
-- Phase 4 — 3D visualization: in progress
-
 ## Tech stack
 
 - **Frontend** — React + Vite, TypeScript, React Three Fiber, Zustand, Tailwind CSS
