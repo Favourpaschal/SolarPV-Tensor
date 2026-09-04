@@ -1,0 +1,4 @@
+pvlib==0.10.3
+scipy==1.11.4
+psycopg2-binary
+python-dotenv
