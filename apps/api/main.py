@@ -8,7 +8,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
-        "https://solarpv-tensor.vercel.app"
+        "https://solar-pv-tensor-web-t3-n5o-r.vercel.app/"
     ],
     allow_credentials=True,
     allow_methods=["*"],
